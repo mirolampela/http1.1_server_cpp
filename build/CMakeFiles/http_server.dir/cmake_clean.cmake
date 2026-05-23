@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/http_server.dir/main.cpp.obj"
   "CMakeFiles/http_server.dir/main.cpp.obj.d"
+  "CMakeFiles/http_server.dir/src/server.cpp.obj"
+  "CMakeFiles/http_server.dir/src/server.cpp.obj.d"
   "http_server.exe"
   "http_server.exe.manifest"
   "http_server.pdb"
