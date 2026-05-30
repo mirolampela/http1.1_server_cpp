@@ -7,12 +7,14 @@ int start_server() {
     WSADATA wsaData;
     int sResult;
 
+// Initializes Winsock (v2.2) - required for any socket functions on Windows
     sResult = WSAStartup(MAKEWORD(2,2), &wsaData);
     if (sResult != 0) {
-        printf("WSAStartup failed: %d\n", sResult);
+        cout<<"WSAStartup failed:"<<WSAGetLastError()<<endl;
         return 1;
     }
 
+// Create TCP socket (IPv4, stream-based)
     SOCKET tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
         if(tcp_socket == INVALID_SOCKET){
             cout<<"Error at socket():"<<WSAGetLastError()<<endl;
@@ -27,14 +29,15 @@ int start_server() {
     my_addr.sin_port = htons(8080);
     my_addr.sin_addr.s_addr = INADDR_ANY;
 
+// Bind the socket to port 8080 on all available network interfaces
     int bResult;
-
     bResult = bind(tcp_socket, (sockaddr*)&my_addr, sizeof my_addr);
     if (bResult != 0) {
         cout<<"Error at bind():"<<WSAGetLastError()<<endl;
         return 1;
     }
 
+// Puts the socket into listening mode (SOMAXCONN = max queued connections)    
     if (listen(tcp_socket, SOMAXCONN) == SOCKET_ERROR) {
         cout<<"Error at listen():"<<WSAGetLastError()<<endl;
         return 1;
@@ -43,7 +46,9 @@ int start_server() {
     sockaddr_in client_addr;
     int client_size = sizeof(client_addr);
 
+// Accept -> recv -> print - everything happens inside while-loop
     while (true) {
+    // Accepts the connection request and returns new socket for that client.
         SOCKET client_socket = accept(tcp_socket, (sockaddr*)&client_addr, &client_size);
 
         if (client_socket == INVALID_SOCKET) {
@@ -51,5 +56,12 @@ int start_server() {
             continue;
         }
         cout<<"Client connected!"<<endl;
+    // Receive data from the client into the buffer. Returns the number of bytes read
+        char buffer[4096];
+        int bytes = recv(client_socket, buffer, 4096, 0);
+
+        cout<<buffer<<endl;
     }
+
+
 }
