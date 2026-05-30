@@ -64,6 +64,7 @@ CMakeFiles/http_server.dir/src/server.cpp.obj: C:/Users/mirol/Documents/GitHub/h
   C:/msys64/ucrt64/include/c++/16.1.0/bits/ptr_traits.h \
   C:/msys64/ucrt64/include/c++/16.1.0/bits/range_access.h \
   C:/msys64/ucrt64/include/c++/16.1.0/bits/requires_hosted.h \
+  C:/msys64/ucrt64/include/c++/16.1.0/bits/sstream.tcc \
   C:/msys64/ucrt64/include/c++/16.1.0/bits/std_abs.h \
   C:/msys64/ucrt64/include/c++/16.1.0/bits/stdexcept_except.h \
   C:/msys64/ucrt64/include/c++/16.1.0/bits/stdexcept_throw.h \
@@ -108,6 +109,7 @@ CMakeFiles/http_server.dir/src/server.cpp.obj: C:/Users/mirol/Documents/GitHub/h
   C:/msys64/ucrt64/include/c++/16.1.0/new \
   C:/msys64/ucrt64/include/c++/16.1.0/ostream \
   C:/msys64/ucrt64/include/c++/16.1.0/pstl/pstl_config.h \
+  C:/msys64/ucrt64/include/c++/16.1.0/sstream \
   C:/msys64/ucrt64/include/c++/16.1.0/stdexcept \
   C:/msys64/ucrt64/include/c++/16.1.0/stdlib.h \
   C:/msys64/ucrt64/include/c++/16.1.0/streambuf \
@@ -520,8 +522,6 @@ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/waitpkgintrin.h:
 
 C:/msys64/ucrt64/include/c++/16.1.0/backward/binders.h:
 
-C:/msys64/ucrt64/include/c++/16.1.0/bits/stdexcept_except.h:
-
 C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/amxint8intrin.h:
 
 C:/msys64/ucrt64/include/c++/16.1.0/x86_64-w64-mingw32/bits/c++allocator.h:
@@ -654,11 +654,15 @@ C:/msys64/ucrt64/include/c++/16.1.0/bits/range_access.h:
 
 C:/msys64/ucrt64/include/c++/16.1.0/bits/requires_hosted.h:
 
+C:/msys64/ucrt64/include/c++/16.1.0/bits/sstream.tcc:
+
 C:/msys64/ucrt64/include/sec_api/string_s.h:
 
 C:/msys64/ucrt64/include/libloaderapi.h:
 
 C:/msys64/ucrt64/include/c++/16.1.0/bits/std_abs.h:
+
+C:/msys64/ucrt64/include/c++/16.1.0/bits/stdexcept_except.h:
 
 C:/msys64/ucrt64/include/c++/16.1.0/bits/stdexcept_throw.h:
 
@@ -775,6 +779,8 @@ C:/msys64/ucrt64/include/c++/16.1.0/ostream:
 C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/bmiintrin.h:
 
 C:/msys64/ucrt64/include/c++/16.1.0/pstl/pstl_config.h:
+
+C:/msys64/ucrt64/include/c++/16.1.0/sstream:
 
 C:/msys64/ucrt64/include/winsmcrd.h:
 
