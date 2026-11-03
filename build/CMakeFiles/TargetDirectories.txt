@@ -1,3 +1,0 @@
-/home/miro/GitHub/http1.1_server_cpp/build/CMakeFiles/http_server.dir
-/home/miro/GitHub/http1.1_server_cpp/build/CMakeFiles/edit_cache.dir
-/home/miro/GitHub/http1.1_server_cpp/build/CMakeFiles/rebuild_cache.dir
