@@ -7,6 +7,7 @@
 #include <map>
 #include <cerrno>
 #include <cstring>
+#include "ParseRequest.h"
 using namespace std;
 
 int start_server() {
@@ -68,31 +69,17 @@ int start_server() {
         string request(buffer, bytes);
 
     // Wraps the request in a stream and splits it into method, path and version by spaces.
-        istringstream stream(request);
-        string method, path, version;
-        stream >> method >> path >> version;
-        cout << "Method: " << method << ", Path: " << path << ", Version: " << version << endl;
+        HttpRequest req = parse_request(request);
+        cout << "Method: " << req.method << ", Path: " << req.path << ", Version: " << req.version << endl;
 
-        map<string, string> headers;
-        string line;
-        while (getline(stream, line)) {
-            // Strip trailing carriage return left by getline
-            if (!line.empty() && line.back() == '\r') {
-                line.pop_back();
-            }
-            size_t colon = line.find(":");
-            if (colon == string::npos) continue;
-            string key = line.substr(0, colon);
-            string value = line.substr(colon + 2);
-            headers[key] = value;
-        }
+
 
     // Build a fixed HTTP response (status line + Content-Type + Content-Length + Connection + body) and send it to the client
         string body = "<html><body><h1>Simple test page for HTTP 1.1 server.</h1></body></html>";
         string response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: " + to_string(body.size()) + "\r\nConnection: close\r\n\r\n" + body;
         int sent = send(client_socket, response.c_str(), response.size(), 0);
 
-        for (auto& h : headers) {
+        for (auto& h : req.headers) {
             cout << h.first << " = " << h.second << endl;
         }
 
