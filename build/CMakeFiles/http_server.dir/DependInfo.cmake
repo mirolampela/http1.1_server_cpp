@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/mirol/Documents/GitHub/http1.1_server_cpp/main.cpp" "CMakeFiles/http_server.dir/main.cpp.obj" "gcc" "CMakeFiles/http_server.dir/main.cpp.obj.d"
-  "C:/Users/mirol/Documents/GitHub/http1.1_server_cpp/src/server.cpp" "CMakeFiles/http_server.dir/src/server.cpp.obj" "gcc" "CMakeFiles/http_server.dir/src/server.cpp.obj.d"
+  "/home/miro/GitHub/http1.1_server_cpp/main.cpp" "CMakeFiles/http_server.dir/main.cpp.o" "gcc" "CMakeFiles/http_server.dir/main.cpp.o.d"
+  "/home/miro/GitHub/http1.1_server_cpp/src/server.cpp" "CMakeFiles/http_server.dir/src/server.cpp.o" "gcc" "CMakeFiles/http_server.dir/src/server.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

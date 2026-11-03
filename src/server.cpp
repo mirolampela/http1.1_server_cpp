@@ -1,28 +1,21 @@
-#include <winsock2.h>
-#include <ws2tcpip.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <map>
+#include <cerrno>
+#include <cstring>
 using namespace std;
 
 int start_server() {
-    WSADATA wsaData;
-    int sResult;
-
-// Initializes Winsock (v2.2) - required for any socket functions on Windows
-    sResult = WSAStartup(MAKEWORD(2,2), &wsaData);
-    if (sResult != 0) {
-        cout << "WSAStartup failed:" << WSAGetLastError() << endl;
-        return 1;
-    }
 
 // Create TCP socket (IPv4, stream-based)
-    SOCKET tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
-        if(tcp_socket == INVALID_SOCKET){
-            cout << "Error at socket():"  << WSAGetLastError() << endl;
-            WSACleanup();
-            return 0;
+    int tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
+        if(tcp_socket == -1){
+            cout << "Error at socket():"  << strerror(errno) << endl;
+            return 1;
         } else {
             cout << "Socket is OK" << endl;
         }
@@ -32,30 +25,37 @@ int start_server() {
     my_addr.sin_port = htons(8080);
     my_addr.sin_addr.s_addr = INADDR_ANY;
 
+// Allow reusing port right after restart
+    int opt = 1;
+    if (setsockopt(tcp_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) {
+        cout << "Error at setsockopt():" << strerror(errno) << endl;
+        return 1;
+    }
+
 // Bind the socket to port 8080 on all available network interfaces
     int bResult;
     bResult = bind(tcp_socket, (sockaddr*)&my_addr, sizeof my_addr);
-    if (bResult != 0) {
-        cout<<"Error at bind():" << WSAGetLastError() << endl;
+    if (bResult == -1) {
+        cout<<"Error at bind():" << strerror(errno) << endl;
         return 1;
     }
 
 // Puts the socket into listening mode (SOMAXCONN = max queued connections)    
-    if (listen(tcp_socket, SOMAXCONN) == SOCKET_ERROR) {
-        cout << "Error at listen():" << WSAGetLastError() << endl;
+    if (listen(tcp_socket, SOMAXCONN) == -1) {
+        cout << "Error at listen():" << strerror(errno) << endl;
         return 1;
     }
 
     sockaddr_in client_addr;
-    int client_size = sizeof(client_addr);
+    socklen_t client_size = sizeof(client_addr);
 
 // Accept -> receive -> parse -> respond - everything happens inside while-loop
     while (true) {
     // Accepts the connection request and returns new socket for that client.
-        SOCKET client_socket = accept(tcp_socket, (sockaddr*)&client_addr, &client_size);
+        int client_socket = accept(tcp_socket, (sockaddr*)&client_addr, &client_size);
 
-        if (client_socket == INVALID_SOCKET) {
-            cout << "Error at accept():" << WSAGetLastError() << endl;
+        if (client_socket == -1) {
+            cout << "Error at accept():" << strerror(errno) << endl;
             continue;
         }
         cout << "Client connected!" << endl;
@@ -87,14 +87,19 @@ int start_server() {
             headers[key] = value;
         }
 
-    // Build a fixed HTTP response (status line + Content-Length + body) and send it to the client
+    // Build a fixed HTTP response (status line + Content-Type + Content-Length + Connection + body) and send it to the client
         string body = "<html><body><h1>Simple test page for HTTP 1.1 server.</h1></body></html>";
-        string response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: " + to_string(body.size()) + "\r\n\r\n" + body;
+        string response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: " + to_string(body.size()) + "\r\nConnection: close\r\n\r\n" + body;
         int sent = send(client_socket, response.c_str(), response.size(), 0);
 
         for (auto& h : headers) {
             cout << h.first << " = " << h.second << endl;
         }
+
+    // Close the connection
+        close(client_socket);
+        cout << "Connection closed!" << endl;
+
     }
 
 

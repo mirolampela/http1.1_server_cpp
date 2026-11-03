@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Users/mirol/Documents/GitHub/http1.1_server_cpp/build/cmake_install.cmake"
+		"/home/miro/GitHub/http1.1_server_cpp/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

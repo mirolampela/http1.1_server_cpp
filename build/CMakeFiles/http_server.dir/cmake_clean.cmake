@@ -1,12 +1,10 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/http_server.dir/main.cpp.obj"
-  "CMakeFiles/http_server.dir/main.cpp.obj.d"
-  "CMakeFiles/http_server.dir/src/server.cpp.obj"
-  "CMakeFiles/http_server.dir/src/server.cpp.obj.d"
-  "http_server.exe"
-  "http_server.exe.manifest"
+  "CMakeFiles/http_server.dir/main.cpp.o"
+  "CMakeFiles/http_server.dir/main.cpp.o.d"
+  "CMakeFiles/http_server.dir/src/server.cpp.o"
+  "CMakeFiles/http_server.dir/src/server.cpp.o.d"
+  "http_server"
   "http_server.pdb"
-  "libhttp_server.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
